@@ -154,7 +154,15 @@ async function handleRequest(request) {
           }
         })
     }
-
+    /**
+     * Unsplash
+     * https://source.unsplash.com/
+     * /unsplash
+     */
+    if (path.startsWith('/unsplash')) {
+        FetchURL="https://source.unsplash.com/1600x900/?nature,water,sky,blue,sea"
+        return fetch(FetchURL)
+    }
 
 
 
@@ -304,6 +312,14 @@ Public_Page=`<!doctype html>
           <p class="description">
             https://api.mhuig.top/color<br>
             简单轻量的调色板
+          </p>
+        </div>
+        <div product-id="13" product-color-a="#dd2c00" product-color-b="-webkit-linear-gradient(to right, #ff9e80, #dd2c00)" product-color-c="linear-gradient(to right, #ff9e80, #dd2c00)" class="product">
+          <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613809194000.svg"/></div>
+          <h1 class="title">Unsplash</h1>
+          <p class="description">
+            https://api.mhuig.top/unsplash<br>
+            可获取随机一张 Unsplash 图片
           </p>
         </div>
     </div>
