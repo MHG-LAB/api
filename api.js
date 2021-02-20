@@ -140,7 +140,20 @@ async function handleRequest(request) {
         }
         return new Response(JSON.stringify(data), headers_init)
     }
-
+    /**
+     * Color
+     * https://github.com/solstice23/purecolor
+     * /color
+     */
+    if (path.startsWith('/color')) {
+        FetchURL="https://cdn.jsdelivr.net/gh/MHG-LAB/pages@1/color/index.html"
+        return new Response(await (await fetch(FetchURL)).text(), {
+          headers: {
+            "content-type": "text/html; charset=utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+    }
 
 
 
@@ -283,6 +296,14 @@ Public_Page=`<!doctype html>
           <p class="description">
             https://api.mhuig.top/hpp/admin/dash/home<br>
             无服务器 Hexo 后端
+          </p>
+        </div>
+        <div product-id="12" product-color-a="#5E72E4" product-color-b="-webkit-linear-gradient(to right, #8c98df, #5E72E4)" product-color-c="linear-gradient(to right, #8c98df, #5E72E4)" class="product">
+          <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613787277000.svg"/></div>
+          <h1 class="title">Pure Color</h1>
+          <p class="description">
+            https://api.mhuig.top/color<br>
+            简单轻量的调色板
           </p>
         </div>
     </div>
