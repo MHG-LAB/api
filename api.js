@@ -146,7 +146,7 @@ async function handleRequest(request) {
      * /color
      */
     if (path.startsWith('/color')) {
-        FetchURL="https://cdn.jsdelivr.net/gh/MHG-LAB/pages@1/color/index.html"
+        FetchURL="https://cdn.jsdelivr.net/gh/MHG-LAB/pages@2/color/index.html"
         return new Response(await (await fetch(FetchURL)).text(), {
           headers: {
             "content-type": "text/html; charset=utf-8",
@@ -211,7 +211,7 @@ Public_Page=`<!doctype html>
         <h1 class="title">Public API</h1>
         <p class="description">对外公开的 API 工具箱</p>
         </div>
-        <div product-id="2" product-color-a="#1aaba8" product-color-b="-webkit-linear-gradient(to right, #a3e9e8, #1aaba8)" product-color-c="linear-gradient(to right, #a3e9e8, #1aaba8)" class="product">
+        <div product-id="2" product-color-a="#00bfa5" product-color-b="-webkit-linear-gradient(to right, #a7ffeb, #00bfa5)" product-color-c="linear-gradient(to right, #a7ffeb, #00bfa5)" class="product">
         <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613736405000.svg"/></div>
         <h1 class="title">Bing 壁纸 API</h1>
         <p class="description">
@@ -222,7 +222,7 @@ Public_Page=`<!doctype html>
           参数为?day=<br>可获取七天图片、版权和详细信息
         </p>
         </div>
-        <div product-id="3" product-color-a="#3654a8" product-color-b="-webkit-linear-gradient(to right, #647ec3, #1a2077)" product-color-c="linear-gradient(to right, #647ec3, #1a2077)" class="product">
+        <div product-id="3" product-color-a="#2962ff" product-color-b="-webkit-linear-gradient(to right, #82b1ff, #2962ff)" product-color-c="linear-gradient(to right, #82b1ff, #2962ff)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613738304000.svg"/></div>
           <h1 class="title">Sitich</h1>
           <p class="description">
@@ -230,7 +230,7 @@ Public_Page=`<!doctype html>
             实验品626
           </p>
         </div>
-        <div product-id="4" product-color-a="#5C5E5F" product-color-b="-webkit-linear-gradient(to right, #c9cbcc, #5C5E5F)" product-color-c="linear-gradient(to right, #c9cbcc, #5C5E5F)" class="product">
+        <div product-id="4" product-color-a="#546e7a" product-color-b="-webkit-linear-gradient(to right, #90a4ae, #546e7a)" product-color-c="linear-gradient(to right, #90a4ae, #546e7a)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613738900000.svg"/></div>
           <h1 class="title">Soul</h1>
           <p class="description">
@@ -239,7 +239,7 @@ Public_Page=`<!doctype html>
             可获取随机一条 毒鸡汤
           </p>
         </div>
-        <div product-id="5" product-color-a="#5E31B5" product-color-b="-webkit-linear-gradient(to right, #856abd, #5E31B5)" product-color-c="linear-gradient(to right, #856abd, #5E31B5)" class="product">
+        <div product-id="5" product-color-a="#aa00ff" product-color-b="-webkit-linear-gradient(to right, #ea80fc, #aa00ff)" product-color-c="linear-gradient(to right, #ea80fc, #aa00ff)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613739294000.svg"/></div>
           <h1 class="title">Hitokoto</h1>
           <p class="description">
@@ -248,7 +248,7 @@ Public_Page=`<!doctype html>
             可获取随机一条 强大的一言
           </p>
         </div>
-        <div product-id="6" product-color-a="#ec3414" product-color-b="-webkit-linear-gradient(to right, #ec593f, #ec3414)" product-color-c="linear-gradient(to right, #ec593f, #ec3414)" class="product">
+        <div product-id="6" product-color-a="#d50000" product-color-b="-webkit-linear-gradient(to right, #ff8a80, #d50000)" product-color-c="linear-gradient(to right, #ff8a80, #d50000)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613739930000.svg"/></div>
           <h1 class="title">PDF Reader</h1>
           <p class="description">
@@ -256,7 +256,7 @@ Public_Page=`<!doctype html>
             Portable Document Format (PDF) viewer that is built with HTML5
           </p>
         </div>
-        <div product-id="7" product-color-a="#75e917" product-color-b="-webkit-linear-gradient(to right, #92e74c, #75e917)" product-color-c="linear-gradient(to right, #92e74c, #75e917)" class="product">
+        <div product-id="7" product-color-a="#64dd17" product-color-b="-webkit-linear-gradient(to right, #ccff90, #64dd17)" product-color-c="linear-gradient(to right, #ccff90, #64dd17)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613740470000.svg"/></div>
           <h1 class="title">Decrypt</h1>
           <p class="description">
@@ -264,7 +264,7 @@ Public_Page=`<!doctype html>
             Decrypt MD5
           </p>
         </div>
-        <div product-id="8" product-color-a="#6C63FF" product-color-b="-webkit-linear-gradient(to right, #9e99fc, #6C63FF)" product-color-c="linear-gradient(to right, #9e99fc, #6C63FF)" class="product">
+        <div product-id="8" product-color-a="#6200ea" product-color-b="-webkit-linear-gradient(to right, #b388ff, #6200ea)" product-color-c="linear-gradient(to right, #b388ff, #6200ea)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613741464000.svg"/></div>
           <h1 class="title">Async Analytics</h1>
           <p class="description">
@@ -273,7 +273,7 @@ Public_Page=`<!doctype html>
             Async Google Analytics & Async Baidu Analytics 
           </p>
         </div>
-        <div product-id="9" product-color-a="#1976d2" product-color-b="-webkit-linear-gradient(to right, #6697c7, #1976d2)" product-color-c="linear-gradient(to right, #6697c7, #1976d2)" class="product">
+        <div product-id="9" product-color-a="#5e35b1" product-color-b="-webkit-linear-gradient(to right, #9575cd, #5e35b1)" product-color-c="linear-gradient(to right, #9575cd, #5e35b1)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613741972000.svg"/></div>
           <h1 class="title">GDIndex</h1>
           <p class="description">
@@ -282,7 +282,7 @@ Public_Page=`<!doctype html>
             Google Drive Index
           </p>
         </div>
-        <div product-id="10" product-color-a="#000000" product-color-b="-webkit-linear-gradient(to right,#5f5e5e, #000000)" product-color-c="linear-gradient(to right,#5f5e5e, #000000)" class="product">
+        <div product-id="10" product-color-a="#212121" product-color-b="-webkit-linear-gradient(to right,#bdbdbd, #212121)" product-color-c="linear-gradient(to right,#bdbdbd, #212121)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613742275000.svg"/></div>
           <h1 class="title">GitHub 文件加速</h1>
           <p class="description">
@@ -298,7 +298,7 @@ Public_Page=`<!doctype html>
             无服务器 Hexo 后端
           </p>
         </div>
-        <div product-id="12" product-color-a="#5E72E4" product-color-b="-webkit-linear-gradient(to right, #8c98df, #5E72E4)" product-color-c="linear-gradient(to right, #8c98df, #5E72E4)" class="product">
+        <div product-id="12" product-color-a="#1e88e5" product-color-b="-webkit-linear-gradient(to right, #64b5f6, #1e88e5)" product-color-c="linear-gradient(to right, #64b5f6, #1e88e5)" class="product">
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613787277000.svg"/></div>
           <h1 class="title">Pure Color</h1>
           <p class="description">
