@@ -223,10 +223,10 @@ Public_Page=`<!doctype html>
         <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613736405000.svg"/></div>
         <h1 class="title">Bing 壁纸 API</h1>
         <p class="description">
-          https://api.mhuig.top/bing<br>
-          https://api.mhuig.top/binginfo<br>
-          https://api.mhuig.top/bingcopyright<br>
-          https://api.mhuig.top/bingcopyright/w<br>
+          /bing<br>
+          /binginfo<br>
+          /bingcopyright<br>
+          /bingcopyright/w<br>
           参数为?day=<br>可获取七天图片、版权和详细信息
         </p>
         </div>
@@ -234,7 +234,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613738304000.svg"/></div>
           <h1 class="title">Sitich</h1>
           <p class="description">
-            https://api.mhuig.top/sitich<br>
+            /sitich<br>
             实验品626
           </p>
         </div>
@@ -242,8 +242,8 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613738900000.svg"/></div>
           <h1 class="title">Soul</h1>
           <p class="description">
-            https://api.mhuig.top/soul<br>
-            https://api.mhuig.top/soul/w<br>
+            /soul<br>
+            /soul/w<br>
             可获取随机一条 毒鸡汤
           </p>
         </div>
@@ -251,8 +251,8 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613739294000.svg"/></div>
           <h1 class="title">Hitokoto</h1>
           <p class="description">
-            https://api.mhuig.top/hitokoto<br>
-            https://api.mhuig.top/hitokoto/w<br>
+            /hitokoto<br>
+            /hitokoto/w<br>
             可获取随机一条 强大的一言
           </p>
         </div>
@@ -260,7 +260,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613739930000.svg"/></div>
           <h1 class="title">PDF Reader</h1>
           <p class="description">
-            https://api.mhuig.top/pdf?file=<br>
+            /pdf?file=<br>
             Portable Document Format (PDF) viewer that is built with HTML5
           </p>
         </div>
@@ -268,7 +268,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613740470000.svg"/></div>
           <h1 class="title">Decrypt</h1>
           <p class="description">
-            https://api.mhuig.top/decrypt?md5=<br>
+            /decrypt?md5=<br>
             Decrypt MD5
           </p>
         </div>
@@ -276,8 +276,8 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613741464000.svg"/></div>
           <h1 class="title">Async Analytics</h1>
           <p class="description">
-            https://api.mhuig.top/ga/jquery.js<br>
-            https://api.mhuig.top/ba/jquery.js<br>
+            /ga/jquery.js<br>
+            /ba/jquery.js<br>
             Async Google Analytics & Async Baidu Analytics 
           </p>
         </div>
@@ -285,8 +285,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613741972000.svg"/></div>
           <h1 class="title">GDIndex</h1>
           <p class="description">
-            https://api.mhuig.top/dir/<br>
-            https://api.mhuig.top/dirAdmin/<br>
+            /dir/<br>
             Google Drive Index
           </p>
         </div>
@@ -294,7 +293,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613742275000.svg"/></div>
           <h1 class="title">GitHub 文件加速</h1>
           <p class="description">
-            https://api.mhuig.top/gh/<br>
+            /gh/<br>
             GitHub 文件加速 支持 release、archive
           </p>
         </div>
@@ -302,7 +301,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613742624000.svg"/></div>
           <h1 class="title">HexoPlusPlus</h1>
           <p class="description">
-            https://api.mhuig.top/hpp/admin/dash/home<br>
+            /hpp/admin/dash/home<br>
             无服务器 Hexo 后端
           </p>
         </div>
@@ -310,7 +309,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613787277000.svg"/></div>
           <h1 class="title">Pure Color</h1>
           <p class="description">
-            https://api.mhuig.top/color<br>
+            /color<br>
             简单轻量的调色板
           </p>
         </div>
@@ -318,7 +317,7 @@ Public_Page=`<!doctype html>
           <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1613809194000.svg"/></div>
           <h1 class="title">Unsplash</h1>
           <p class="description">
-            https://api.mhuig.top/unsplash<br>
+            /unsplash<br>
             可获取随机一张 Unsplash 图片
           </p>
         </div>
