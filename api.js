@@ -163,8 +163,22 @@ async function handleRequest(request) {
         FetchURL="https://source.unsplash.com/1600x900/?nature,water,sky,blue,sea"
         return fetch(FetchURL)
     }
-
-
+    /**
+     * ACG
+     * https://github.com/Xecades/ACG/tree/main/image
+     * /acg
+     */
+    if (path.startsWith('/acg')) {
+      FetchUrl="https://cdn.jsdelivr.net/gh/Xecades/ACG@main/image/"+randomNum(1,279)+".webp"
+      return fetch(FetchUrl)
+    }
+    /**
+     * Api Source
+     * /apisource
+     */
+    if (path.startsWith('/apisource')) {
+      return Response.redirect(`https://github.com/MHG-LAB/api`, 301)
+    }
 
 
     /**
@@ -202,7 +216,8 @@ function randomNum(minNum,maxNum){
 /**
  * Public Home
  */
-Public_Page=`<!doctype html>
+Public_Page=`
+<!doctype html>
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
@@ -319,6 +334,22 @@ Public_Page=`<!doctype html>
           <p class="description">
             /unsplash<br>
             可获取随机一张 Unsplash 图片
+          </p>
+        </div>
+        <div product-id="14" product-color-a="#dd2c00" product-color-b="-webkit-linear-gradient(to right, #ff8a65, #f4511e)" product-color-c="linear-gradient(to right, #ff8a65, #f4511e)" class="product">
+          <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1614067520000.svg"/></div>
+          <h1 class="title">ACG</h1>
+          <p class="description">
+            /acg<br>
+            可获取随机一张 ACG 图片
+          </p>
+        </div>
+        <div product-id="end" product-color-a="#017923" product-color-b="-webkit-linear-gradient(to right, #59B373, #017923)" product-color-c="linear-gradient(to right, #59B373, #017923)" class="product">
+          <div class="thumbnail"><img src="https://cdn.jsdelivr.net/gh/MHuiG/imgbed@master/data/1614064417000.svg"/></div>
+          <h1 class="title">API Source</h1>
+          <p class="description">
+            /apisource<br>
+		      	API 源代码
           </p>
         </div>
     </div>
