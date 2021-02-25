@@ -270,16 +270,29 @@ async function handleRequest(request) {
         FetchUrl="https://cdn.jsdelivr.net/npm/chenyfan-happypic@0.0."+randomNum(1,32)+"/"+randomNum(1,99)+".jpg"
         return fetch(FetchUrl)
       }
-      /**
-       * https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex/
-       * /happypic-sex
-       */
-      if (path.startsWith('/happypic-sex')) {
-        FetchUrl="https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex@0.0."+randomNum(1,19)+"/"+randomNum(1,99)+".jpg"
-        return fetch(FetchUrl)
-      }
       /******* ChenYuFan END ********************************************************************************************************** */
 
+      /**
+       * Admin
+       */
+      if(path.startsWith('/Admin')){
+        // Auth
+        if (!doBasicAuth(request)) {
+          return unauthorized();
+        }
+        /**
+         * https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex/
+         * /happypic-sex
+         */
+        if (path.startsWith('/Admin/happypic-sex')) {
+          FetchUrl="https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex@0.0."+randomNum(1,19)+"/"+randomNum(1,99)+".jpg"
+          return fetch(FetchUrl)
+        }
+
+
+
+
+      }
 
 
   }catch(e){
@@ -304,6 +317,37 @@ async function handleRequest(request) {
 /***************************************************************************************************/
 /******************************************  工具函数  *********************************************/
 /***************************************************************************************************/
+/**
+ * 简单鉴权
+ */
+function doBasicAuth(request) {
+  const auth = request.headers.get('Authorization');
+  if (!auth || !/^Basic [A-Za-z0-9._~+/-]+=*$/i.test(auth)) {
+    return false;
+  }
+  const [user, pass] = parseBasicAuth(auth);
+  return user === API_USER && pass === API_PASSWORD;
+}
+function parseBasicAuth(auth) {
+  try {
+    return atob(auth.split(' ').pop()).split(':');
+  } catch (e) {
+    return [];
+  }
+}
+/**
+ * 未鉴权 401
+ */
+function unauthorized() {
+  return new Response(ErrorPage("您的权限不足，请不要再发送此请求"), {
+    headers: {
+      "content-type": "text/html; charset=utf-8",
+      'WWW-Authenticate': 'Basic realm="MyAPI"',
+      'Access-Control-Allow-Origin': '*'
+    },
+    status: 401
+  });
+}
 /**
  * 生成从minNum到maxNum的随机数
  * https://www.runoob.com/w3cnote/js-random.html
