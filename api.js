@@ -234,24 +234,23 @@ async function handleRequest(request) {
        * /poet
        */
       /**
-          参数名	参数作用	参数值
-          type	选择唐诗还是宋词，留空唐诗	tang or song
-          from	从第几个诗词样本开始取，留空随机	tang：1~254
-          song：1~57
-          with	该样本中的第with+1首诗,留空随机	0~999
-          limit	获取句数限制,留空为99即所有,超过原来诗词长度则按原来长度计算	99
-          start	从第start+1句诗开始获取,留空为0	0
-          tran	是否进行翻译,为true则翻译,默认为true	true or false
-          author	是否显示作者,为true则显示,默认为true	true or false
+          参数名      参数作用	                                                      参数值
+          type    选择唐诗还是宋词，留空唐诗	                                     tang or song
+          from	  从第几个诗词样本开始取，留空随机        	                   tang：1~254 song：1~57
+          with	  该样本中的第with首诗,留空随机	                                       0~999
+          limit	  获取句数限制,留空为99即所有,超过原来诗词长度则按原来长度计算	            99
+          start	  从第start句诗开始获取,留空为0	                                         0
+          tran	  是否进行翻译,为true则翻译,默认为true	                            true or false
+          author	是否显示作者,为true则显示,默认为true	                            true or false
        */
       if (path.startsWith('/poet')) {
         const type = urlObj.searchParams.get('type') == "song" ? "song" : "tang"
-        const l1 = urlObj.searchParams.get('from') != undefined ? urlObj.searchParams.get('from') : (type == "song" ? Math.floor(Math.random() * (254) + 1) : Math.floor(Math.random() * (57) + 1))
-        const l2 = urlObj.searchParams.get('with') != undefined ? urlObj.searchParams.get('with') : Math.floor(Math.random() * (100))
-        const limit = urlObj.searchParams.get('limit') != undefined ? urlObj.searchParams.get('limit') : 100
-        const start = urlObj.searchParams.get('start') != undefined ? urlObj.searchParams.get('start') : 0
-        const tran = urlObj.searchParams.get('tran') != undefined ? urlObj.searchParams.get('tran') : "true"
-        const author = urlObj.searchParams.get('author') != undefined ? urlObj.searchParams.get('author') : "true"
+        const l1 = urlObj.searchParams.get('from') || (type == "song" ? Math.floor(Math.random() * (254) + 1) : Math.floor(Math.random() * (57) + 1))
+        const l2 = urlObj.searchParams.get('with') || Math.floor(Math.random() * (100))
+        const limit = urlObj.searchParams.get('limit') || 100
+        const start = urlObj.searchParams.get('start') || 0
+        const tran = urlObj.searchParams.get('tran') || "true"
+        const author = urlObj.searchParams.get('author') || "true"
         const all = await JSON.parse(await (await fetch(`https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/json/poet.${type}.${l1}000.json`)).text())
         const poet_all = all[l2]
         let poet = ""
@@ -260,7 +259,7 @@ async function handleRequest(request) {
         }
         if (author == "true") { poet += `  --${poet_all["author"]}` }
         if (tran == "true") { poet = Simplized(poet) }
-        return new Response(poet)
+        return new Response(poet, headers_init)
       }
       /**
        * https://cdn.jsdelivr.net/npm/chenyfan-happypic/
@@ -271,7 +270,101 @@ async function handleRequest(request) {
         return fetch(FetchUrl)
       }
       /******* ChenYuFan END ********************************************************************************************************** */
-
+      /**
+       * IP 信息
+       * /ip
+       */
+      if (path.startsWith('/ip')) {
+        return new Response(JSON.stringify(
+          {
+            "CF-Connecting-IP":request.headers.get("CF-Connecting-IP"),
+            "X-Forwarded-For":request.headers.get("X-Forwarded-For"),
+            "Cf-Ipcountry":request.headers.get("Cf-Ipcountry"),
+            "X-Real-IP":new Map(request.headers).get('x-real-ip')
+        }), headers_init)
+      }
+      /**
+       * DNS查询
+       * /dns/:upstream:/:way:/:host:?name=xxx&type=xxx&edns_client_subnet=x.x.x.x
+       * /dns
+       * /dns/get
+       * /dns/ali/get/host
+       * 
+        参数	                    参数用途
+        name	                需要解析的域名
+        type                	解析形式,A or AAAA or CNAME等等
+        edns_client_subnet	  EDNS的ip,默认开启为本机ip,开启此项功能可提高解析精准度.注:此功能在upstream为CloudFlare的情况下失效,因为CloudFlare为了用户隐私关闭此功能.
+        way                   获取方式，默认doh方式，可使用以下参数: doh get
+        host	                是否转化为host格式[仅在type为A或AAAA格式下生效]
+        upstream	            上游DNS解析,默认为CloudFlare 回源<1ms
+                              可使用以下参数:
+                              google使用谷歌DNS,回源1~10ms
+                              ali使用阿里CDN,回源50~150ms
+                              dnspod使用腾讯云DNSPODCDN,回源10~80ms
+        注：DoH 推荐直接选用https://dns.alidns.com/dns-query，而不是用本API的反代接口
+       */
+      if (path.startsWith("/dns")) {
+        let _type = urlObj.searchParams.get('type') || "A"
+        let _domain = urlObj.searchParams.get('name') || "mhuig.top"
+        let _edns_client_subnet = urlObj.searchParams.get('edns_client_subnet') || new Map(request.headers).get('x-real-ip') || `1.0.0.1`
+        let _fetch = ""
+        FetchURL=`https://cloudflare-dns.com/dns-query`
+        if (path.indexOf("google") != -1) {
+          // POST
+          FetchURL=`https://dns.google/dns-query`
+        }
+        if (path.indexOf("ali") != -1) {
+          // POST
+          FetchURL=`https://dns.alidns.com/dns-query`
+        }
+        if (path.indexOf("dnspod") != -1) {
+          // POST GET
+          FetchURL=`https://doh.pub/dns-query`
+        }
+        if (path.indexOf("rubyfish") != -1) {
+          // POST GET
+          FetchURL=`https://dns.rubyfish.cn/dns-query`
+        }
+        if (path.indexOf("get") != -1) {
+          if (path.indexOf("google") != -1) {
+            // GET
+            FetchURL=`https://dns.google/resolve`
+          }
+          if (path.indexOf("ali") != -1) {
+            // GET
+            FetchURL=`https://dns.alidns.com/resolve`
+          }
+          FetchURL+=`?name=${_domain}&type=${_type}&edns_client_subnet=${_edns_client_subnet}`
+          _fetch = await fetch(FetchURL,{ headers: { accept: "application/dns-json" }})
+          const _text = await _fetch.text()
+          if (path.indexOf("host") != -1) {
+            if ((_type == "A" || _type == "AAAA")) {
+              const _Answer = await JSON.parse(_text)["Answer"]
+              let __hosts = ""
+              for (i = 0; i < _Answer.length; i++) {
+                if (checkipv4(_Answer[i]["data"]) || checkipv6(_Answer[i]["data"])) {
+                  __hosts += `${_Answer[i]["data"]} ${_domain}\n`
+                }
+              }
+              return new Response(__hosts, headers_init)
+            }
+          }
+          return new Response(_text, headers_init)
+        }
+        // https://github.com/GangZhuo/cf-doh
+        return fetch(new Request(FetchURL, {
+          method: "POST",
+          redirect: 'manual',
+          headers: request.headers,
+          body: request.body
+        }));
+      }
+      /**
+       * Cloudflare的CDN加速节点信息
+       * https://www.cloudflare.com/zh-cn/network/
+       * https://www.cloudflarestatus.com/
+       * /cdn-cgi/trace
+       */
       /**
        * Admin
        */
@@ -282,7 +375,7 @@ async function handleRequest(request) {
         }
         /**
          * https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex/
-         * /happypic-sex
+         * /Admin/happypic-sex
          */
         if (path.startsWith('/Admin/happypic-sex')) {
           FetchUrl="https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex@0.0."+randomNum(1,19)+"/"+randomNum(1,99)+".jpg"
@@ -396,6 +489,12 @@ function Simplized(cc) {
           str += cc.charAt(i);
   }
   return str;
+}
+function checkipv4(ip) {
+  return ip.match(/^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/) != null ? true : false
+}
+function checkipv6(ip) {
+    return ip.match(/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/) != null ? true : false
 }
 /***************************************************************************************************/
 /********************************************  页面  ***********************************************/
