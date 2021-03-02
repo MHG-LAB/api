@@ -381,12 +381,42 @@ async function handleRequest(request) {
           FetchUrl="https://cdn.jsdelivr.net/npm/chenyfan-happypic-sex@0.0."+randomNum(1,19)+"/"+randomNum(1,99)+".jpg"
           return fetch(FetchUrl)
         }
-
-
-
-
       }
-
+      /**
+       * Github Action workflow dispatch
+       * https://docs.github.com/cn/developers/webhooks-and-events/webhook-events-and-payloads#workflow_dispatch
+       * https://docs.github.com/cn/rest/reference/actions#create-a-workflow-dispatch-event
+       * 
+       * /workflow/info?token=xxxx&owner=xxx&repo=xxx
+       * /workflow?token=xxxx&ref=master&owner=xxx&repo=xxx&id=xxx
+       * 
+       * */
+      if (path.startsWith('/workflow')) {
+        token = urlObj.searchParams.get('token') || "这不是你的TOKEN"
+        ref = urlObj.searchParams.get('ref') || "master"
+        owner = urlObj.searchParams.get('owner') || "MHG-LAB"
+        repo = urlObj.searchParams.get('repo') || "friends-gallery"
+        workflow_id = urlObj.searchParams.get('id') || "5825125"
+        if(path.startsWith('/workflow/info')){
+          return fetch(new Request("https://api.github.com/repos/"+owner+"/"+repo+"/actions/workflows", {
+            method: "GET",
+            headers: {
+              "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36 Edg/88.0.100.0",
+              "Accept": "application/vnd.github.v3+json",
+            }
+          }));
+        }
+        console.log(`{"ref":"`+ref+`"}`)
+        return fetch(new Request("https://api.github.com/repos/"+owner+"/"+repo+"/actions/workflows/"+workflow_id+"/dispatches", {
+          method: "POST",
+          headers: {
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36 Edg/88.0.100.0",
+            "Authorization": "token "+token,
+            "Accept": "application/vnd.github.v3+json",
+          },
+          body: `{"ref":"`+ref+`"}`
+        }));
+      }
 
   }catch(e){
     console.log(e)
